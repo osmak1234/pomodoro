@@ -22,6 +22,7 @@ pub fn handle_key_events(key_event: KeyEvent, app: &mut App) -> AppResult<()> {
         KeyCode::Right => app.change_duration(false, false),
         KeyCode::Char('t') => app.toggle_tooltip(),
         KeyCode::Char('r') => app.stopwatch.restart(),
+        KeyCode::Char('s') => app.skip(),
 
         // Other handlers you could add here.
         _ => {}

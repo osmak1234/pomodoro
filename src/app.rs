@@ -86,6 +86,21 @@ pause: {} min ",
             self.pause ^= true;
         }
     }
+
+    pub fn skip(&mut self) {
+        if self.pause {
+            let previous_duration = self.pause_duration;
+            self.pause_duration = 0;
+            self.pause_check();
+            self.pause_duration = previous_duration;
+        } else {
+            let previous_duration = self.work_duration;
+            self.work_duration = 0;
+            self.pause_check();
+            self.work_duration = previous_duration;
+        }
+    }
+
     pub fn update_clock(&mut self) {
         let second_countdown = if self.pause {
             self.pause_duration

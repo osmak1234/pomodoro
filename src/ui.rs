@@ -23,6 +23,7 @@ pub fn render<B: Backend>(app: &mut App, frame: &mut Frame<'_, B>) {
         ))
         .block(
             Block::default()
+                .title(if app.pause { " pause " } else { " work " })
                 .title_alignment(Alignment::Center)
                 .borders(Borders::ALL)
                 .border_type(BorderType::Rounded),
