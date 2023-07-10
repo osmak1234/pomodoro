@@ -1,7 +1,7 @@
 # Cli pomodoro timer
 
 I created this as one of my first rust projects along side with [text-to-ascii-art](https://crates.io/crates/text-to-ascii-art), which is a library for
-making large text in terminal using ascii-art. I hope you find this useful ❤️ .
+making larger text in terminal using ascii-art. I hope you find this useful ❤️ .
 
 # Install
 
@@ -19,11 +19,11 @@ s - skip current segment
 ⬆️ - increase work duration<br>
 ⬇️ - decrease work duration<br>
 ⬅️ - increase pause duration<br>
-➡️-- decrease pause duration<br>
+➡️ - decrease pause duration<br>
 
 # Defaults
 
-25 min - work
+25 min - work <br>
 5 min - pause
 
 # Usage
