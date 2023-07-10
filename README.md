@@ -1,7 +1,7 @@
 # Cli pomodoro timer
 
 I created this as one of my first rust projects along side with [text-to-ascii-art](https://crates.io/crates/text-to-ascii-art), which is a library for
-making large text in terminal using ascii-art
+making large text in terminal using ascii-art. I hope you find this useful ❤️ .
 
 # Install
 
@@ -13,13 +13,13 @@ cargo install --git https://github.com/osmak1234/pomodoro
 
 t - show tooltip
 
-r - reset current segment
+r - reset current segment <br>
 s - skip current segment
 
-⬆️ - increase work duration
-⬇️ - decrease work duration
-⬅️ - increase pause duration
-➡️-- decrease pause duration
+⬆️ - increase work duration<br>
+⬇️ - decrease work duration<br>
+⬅️ - increase pause duration<br>
+➡️-- decrease pause duration<br>
 
 # Defaults
 
@@ -31,7 +31,7 @@ s - skip current segment
 I use this in a small floating window, usually over my spotify, here is the launch for kitty
 
 ```bash
-kitty --class "floating" -o allow_remote_control=yes  -o remember_window_size=nom  -o initial_window_width=500 -o initial_window_height=350 pomodoro
+kitty --class "floating" -o allow_remote_control=yes  -o remember_window_size=nom  -o initial_window_width=500 -o initial_window_height=350 pomo
 ```
 
 # Roadmap
