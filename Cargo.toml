@@ -9,6 +9,6 @@ edition = "2021"
 crossterm = "0.26.1"
 notify-rust = "4.8.0"
 stopwatch = "0.0.7"
-text-to-ascii-art = "0.1.5"
+text-to-ascii-art = "0.1.6"
 tui = { package = "ratatui", version = "0.21.0" }
 rodio = "0.17.1"

@@ -1,10 +1,10 @@
+use pomo::app::{App, AppResult};
+use pomo::event::{Event, EventHandler};
+use pomo::handler::handle_key_events;
+use pomo::tui::Tui;
 use std::io;
 use tui::backend::CrosstermBackend;
 use tui::Terminal;
-use pomodoro::app::{App, AppResult};
-use pomodoro::event::{Event, EventHandler};
-use pomodoro::handler::handle_key_events;
-use pomodoro::tui::Tui;
 
 fn main() -> AppResult<()> {
     // Create an application.
