@@ -2,8 +2,6 @@ use std::error;
 extern crate stopwatch;
 use notify_rust::Notification;
 use rodio::{source::Source, Decoder, OutputStream};
-use std::fs::File;
-use std::io::BufReader;
 use stopwatch::Stopwatch;
 use text_to_ascii_art::convert;
 /// Application result type.
@@ -79,9 +77,9 @@ pause: {} min ",
             let _ = Notification::new().summary(&message).show();
 
             let (_stream, stream_handle) = OutputStream::try_default().unwrap();
-            let file = BufReader::new(File::open("notify.mp3").unwrap());
-            let source = Decoder::new(file).unwrap();
-            let _ = stream_handle.play_raw(source.convert_samples());
+            let my_slice = std::io::Cursor::new(include_bytes!("../notify.mp3").as_ref());
+            let source = Decoder::new(my_slice).unwrap();
+            let _sound_result = stream_handle.play_raw(source.convert_samples());
             std::thread::sleep(std::time::Duration::from_millis(900));
             self.pause ^= true;
         }
@@ -134,10 +132,10 @@ pause: {} min ",
         }
 
         let (_stream, stream_handle) = OutputStream::try_default().unwrap();
-        let file = BufReader::new(File::open("click.mp3").unwrap());
-        let source = Decoder::new(file).unwrap();
-        let _ = stream_handle.play_raw(source.convert_samples());
-        std::thread::sleep(std::time::Duration::from_millis(180));
+        let my_slice = std::io::Cursor::new(include_bytes!("../click.mp3").as_ref());
+        let source = Decoder::new(my_slice).unwrap();
+        let _sound_result = stream_handle.play_raw(source.convert_samples());
+        std::thread::sleep(std::time::Duration::from_millis(220));
     }
 
     pub fn change_duration(&mut self, increase: bool, work: bool) {
@@ -187,6 +185,7 @@ pause: {} min ",
   {} min
 
     r - restart 
+    s - skip
 ",
                 self.work_duration / 60,
                 self.pause_duration / 60
