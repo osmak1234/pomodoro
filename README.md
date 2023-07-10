@@ -16,10 +16,10 @@ t - show tooltip
 r - reset current segment
 s - skip current segment
 
-󱦲 - increase work duration
-󱦳 - decrease work duration
-󱦱 - increase pause duration
-󱦰 - decrease pause duration
+⬆️ - increase work duration
+⬇️ - decrease work duration
+⬅️ - increase pause duration
+➡️-- decrease pause duration
 
 # Defaults
 
