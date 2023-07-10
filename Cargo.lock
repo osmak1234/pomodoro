@@ -1210,7 +1210,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "pomodoro"
+name = "pomo"
 version = "0.1.0"
 dependencies = [
  "crossterm",
@@ -1324,9 +1324,9 @@ dependencies = [
 
 [[package]]
 name = "ratatui"
-version = "0.20.1"
+version = "0.21.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dcc0d032bccba900ee32151ec0265667535c230169f5a011154cdcd984e16829"
+checksum = "ce841e0486e7c2412c3740168ede33adeba8e154a15107b879d8162d77c7174e"
 dependencies = [
  "bitflags",
  "cassowary",
@@ -1665,9 +1665,9 @@ dependencies = [
 
 [[package]]
 name = "text-to-ascii-art"
-version = "0.1.4"
+version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c8e9205c4c59f15742c9790d6318938c38b0e96de0b0032a33afe83de25b9c21"
+checksum = "7247ac500f2b5f29dec6e6916b1462f4f308a640818c5d8f374e3c8906e70a12"
 
 [[package]]
 name = "thiserror"
