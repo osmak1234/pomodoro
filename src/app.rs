@@ -17,6 +17,7 @@ pub struct App {
     pub stopwatch: Stopwatch,
     pub tooltip: String,
     pub button: String,
+    pub only_minutes: bool,
 }
 
 impl Default for App {
@@ -30,6 +31,7 @@ impl Default for App {
             running: true,
             tooltip: "".to_string(),
             button: "".to_string(),
+            only_minutes: false,
         }
     }
 }
@@ -52,6 +54,13 @@ impl App {
     /// Set running to false to quit the application.
     pub fn quit(&mut self) {
         self.running = false;
+    }
+
+    pub fn toggle_only_minutes(&mut self) {
+        self.only_minutes = match self.only_minutes {
+            true => false,
+            false => true,
+        }
     }
 
     pub fn pause_check(&mut self) {
@@ -106,7 +115,11 @@ pause: {} min ",
             self.work_duration
         } - self.stopwatch.elapsed().as_secs() as i32;
         let (seconds, minutes) = (second_countdown % 60, second_countdown / 60);
-        let time = format!("{:2}:{:2}", minutes, seconds);
+        let time: String = if self.only_minutes {
+            format!("{:2}", minutes)
+        } else {
+            format!("{:2}:{:2}", minutes, seconds)
+        };
         match convert(time) {
             Ok(text) => self.timer = text,
             Err(err) => panic!("{:?}", err),
@@ -186,6 +199,7 @@ pause: {} min ",
 
     r - restart 
     s - skip
+    m - display only minutes
 ",
                 self.work_duration / 60,
                 self.pause_duration / 60

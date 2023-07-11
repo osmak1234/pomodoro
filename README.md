@@ -14,7 +14,8 @@ cargo install --git https://github.com/osmak1234/pomodoro
 t - show tooltip
 
 r - reset current segment <br>
-s - skip current segment
+s - skip current segment<br>
+m - display only minutes
 
 ⬆️ - increase work duration<br>
 ⬇️ - decrease work duration<br>
@@ -24,11 +25,14 @@ s - skip current segment
 # Defaults
 
 25 min - work <br>
-5 min - pause
+5 min - pause <br>
+<br>
+tooltip - hidden <br>
+display only minutes - false
 
 # Usage
 
-I use this in a small floating window, usually over my spotify, here is the launch for kitty
+I use this in a small floating window, here is the launch for the kitty terminal.
 
 ```bash
 kitty --class "floating" -o allow_remote_control=yes  -o remember_window_size=nom  -o initial_window_width=500 -o initial_window_height=350 pomo
@@ -42,3 +46,4 @@ kitty --class "floating" -o allow_remote_control=yes  -o remember_window_size=no
 - [x] Big text
 - [x] Work/Pause indicator
 - [x] Paused timer indicator
+- [x] Display only minutes toggle
