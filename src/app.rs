@@ -18,6 +18,7 @@ pub struct App {
     pub tooltip: String,
     pub button: String,
     pub only_minutes: bool,
+    pub sound: String,
 }
 
 impl Default for App {
@@ -32,6 +33,7 @@ impl Default for App {
             tooltip: "".to_string(),
             button: "".to_string(),
             only_minutes: false,
+            sound: "󰕾".to_string(),
         }
     }
 }
@@ -85,11 +87,13 @@ pause: {} min ",
             };
             let _ = Notification::new().summary(&message).show();
 
-            let (_stream, stream_handle) = OutputStream::try_default().unwrap();
-            let my_slice = std::io::Cursor::new(include_bytes!("../notify.mp3").as_ref());
-            let source = Decoder::new(my_slice).unwrap();
-            let _sound_result = stream_handle.play_raw(source.convert_samples());
-            std::thread::sleep(std::time::Duration::from_millis(900));
+            if self.sound == *"󰕾" {
+                let (_stream, stream_handle) = OutputStream::try_default().unwrap();
+                let my_slice = std::io::Cursor::new(include_bytes!("../notify.mp3").as_ref());
+                let source = Decoder::new(my_slice).unwrap();
+                let _sound_result = stream_handle.play_raw(source.convert_samples());
+                std::thread::sleep(std::time::Duration::from_millis(900));
+            }
             self.pause ^= true;
         }
     }
@@ -143,12 +147,21 @@ pause: {} min ",
                 self.button = "".to_string()
             }
         }
+        if self.sound == *"󰕾" {
+            let (_stream, stream_handle) = OutputStream::try_default().unwrap();
+            let my_slice = std::io::Cursor::new(include_bytes!("../click.mp3").as_ref());
+            let source = Decoder::new(my_slice).unwrap();
+            let _sound_result = stream_handle.play_raw(source.convert_samples());
+            std::thread::sleep(std::time::Duration::from_millis(220));
+        }
+    }
 
-        let (_stream, stream_handle) = OutputStream::try_default().unwrap();
-        let my_slice = std::io::Cursor::new(include_bytes!("../click.mp3").as_ref());
-        let source = Decoder::new(my_slice).unwrap();
-        let _sound_result = stream_handle.play_raw(source.convert_samples());
-        std::thread::sleep(std::time::Duration::from_millis(220));
+    pub fn toggle_sound(&mut self) {
+        match self.sound.as_str() {
+            "󰖁" => self.sound = "󰕾".to_string(),
+            "󰕾" => self.sound = "󰖁".to_string(),
+            _ => {}
+        }
     }
 
     pub fn change_duration(&mut self, increase: bool, work: bool) {
@@ -196,13 +209,17 @@ pause: {} min ",
  Increas                    Decrease 
 󱦱            Pause          󱦰
   {} min
+    
+     {}
 
+    d - sound effects
     r - restart 
     s - skip
     m - display only minutes
 ",
                 self.work_duration / 60,
-                self.pause_duration / 60
+                self.pause_duration / 60,
+                self.sound
             );
         } else {
             self.tooltip = "".to_string();

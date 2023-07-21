@@ -11,8 +11,9 @@ cargo install --git https://github.com/osmak1234/pomodoro
 
 # Controls
 
-t - show tooltip
+t - show tooltip <br>
 
+d - sound effects <br>
 r - reset current segment <br>
 s - skip current segment<br>
 m - display only minutes
@@ -41,6 +42,7 @@ kitty --class "floating" -o allow_remote_control=yes  -o remember_window_size=no
 # Roadmap
 
 - [x] Sounds
+  - [x] Toggle sounds
 - [x] Adjustable time
   - [ ] Set defaults permanently
 - [x] Big text
