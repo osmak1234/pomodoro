@@ -37,6 +37,7 @@ d - default in app, file<br>
 5 min - pause <br>
 <br>
 tooltip - hidden <br>
+sound - off <br>
 display only minutes - false
 
 # Usage
