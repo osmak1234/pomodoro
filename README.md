@@ -3,11 +3,17 @@
 I created this as one of my first rust projects along side with [text-to-ascii-art](https://crates.io/crates/text-to-ascii-art), which is a library for
 making larger text in terminal using ascii-art. I hope you find this useful ❤️ .
 
+
+https://github.com/osmak1234/pomodoro/assets/91377215/19eb67fe-6e43-40d6-9c8d-1798a3891f7d
+
 # Install
 
 ```bash
 cargo install --git https://github.com/osmak1234/pomodoro
 ```
+
+
+
 
 # Controls
 
@@ -43,11 +49,19 @@ kitty --class "floating" -o allow_remote_control=yes  -o remember_window_size=no
 
 # Roadmap
 
+- [x] Finished project
+
+- [x] README video showcase
+
+- [x] Save config permanently
+  
 - [x] Sounds
-  - [x] Toggle sounds
+  - [x] Toggle sound
+
 - [x] Adjustable time
   - [x] Set defaults permanently
   - [x] Store values in .config/pomodorors
+
 - [x] Big text
 - [x] Work/Pause indicator
 - [x] Paused timer indicator
