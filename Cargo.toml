@@ -12,3 +12,6 @@ stopwatch = "0.0.7"
 text-to-ascii-art = "0.1.6"
 tui = { package = "ratatui", version = "0.21.0" }
 rodio = "0.17.1"
+serde_json = "1.0.104"
+serde = "1.0.177"
+dirs = "5.0.1"

@@ -2,13 +2,41 @@ use pomo::app::{App, AppResult};
 use pomo::event::{Event, EventHandler};
 use pomo::handler::handle_key_events;
 use pomo::tui::Tui;
-use std::io;
+use std::fs;
+use std::io::{self, ErrorKind, Write};
+use std::path::PathBuf;
 use tui::backend::CrosstermBackend;
 use tui::Terminal;
 
 fn main() -> AppResult<()> {
+    // look for config_file
+    let home_dir = dirs::home_dir().expect("Failed to get home directory");
+    let config_file_path: PathBuf = [
+        home_dir,
+        ".config".into(),
+        "pomodorors".into(),
+        "config".into(),
+    ]
+    .iter()
+    .collect();
+    let file = fs::read_to_string(&config_file_path);
+    let mut app: App;
+
+    match file {
+        Ok(val) => app = App::new_from_file(val),
+        Err(err) => {
+            if err.kind() == ErrorKind::PermissionDenied {
+                panic!("Application doesn't have permision to read config.");
+            }
+            if err.kind() == ErrorKind::NotFound {
+                let mut temp = App::new();
+                temp.default_config();
+            }
+            app = App::new();
+        }
+    }
+
     // Create an application.
-    let mut app = App::new();
 
     // Initialize the terminal user interface.
     let backend = CrosstermBackend::new(io::stderr());

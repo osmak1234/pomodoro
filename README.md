@@ -13,10 +13,12 @@ cargo install --git https://github.com/osmak1234/pomodoro
 
 t - show tooltip <br>
 
-d - sound effects <br>
-r - reset current segment <br>
-s - skip current segment<br>
-m - display only minutes
+s - sound effects <br>
+r - restart <br>
+f - skip <br>
+m - display only minutes<br>
+w - save config to file<br>
+d - default in app, file<br>
 
 ⬆️ - increase work duration<br>
 ⬇️ - decrease work duration<br>
@@ -44,7 +46,8 @@ kitty --class "floating" -o allow_remote_control=yes  -o remember_window_size=no
 - [x] Sounds
   - [x] Toggle sounds
 - [x] Adjustable time
-  - [ ] Set defaults permanently
+  - [x] Set defaults permanently
+  - [x] Store values in .config/pomodorors
 - [x] Big text
 - [x] Work/Pause indicator
 - [x] Paused timer indicator

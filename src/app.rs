@@ -1,11 +1,22 @@
-use std::error;
+use std::{error, fs, io::Write, path::PathBuf};
 extern crate stopwatch;
 use notify_rust::Notification;
 use rodio::{source::Source, Decoder, OutputStream};
+use serde::{Deserialize, Serialize};
+use serde_json;
 use stopwatch::Stopwatch;
 use text_to_ascii_art::convert;
 /// Application result type.
 pub type AppResult<T> = std::result::Result<T, Box<dyn error::Error>>;
+
+/// Config file json
+#[derive(Serialize, Deserialize)]
+pub struct AppConfig {
+    pub work_duration: i32,
+    pub pause_duration: i32,
+    pub only_minutes: bool,
+    pub sound: bool,
+}
 
 /// Application.
 pub struct App {
@@ -42,6 +53,93 @@ impl App {
     /// Constructs a new instance of [`App`].
     pub fn new() -> Self {
         Self::default()
+    }
+
+    pub fn default_config(&mut self) {
+        let default_config = r#"
+{
+     "work_duration": 1500,
+     "pause_duration": 300,
+     "only_minutes": false,
+     "sound": false
+}
+"#;
+        let home_dir = dirs::home_dir().expect("Failed to get home directory");
+        let config_file_path: PathBuf = [
+            home_dir.clone(),
+            ".config".into(),
+            "pomodorors".into(),
+            "config".into(),
+        ]
+        .iter()
+        .collect();
+
+        let _ = fs::create_dir(
+            [home_dir, ".config".into(), "pomodorors".into()]
+                .iter()
+                .collect::<PathBuf>(),
+        );
+        let mut config_file = fs::File::create(config_file_path).expect("Failed to create file");
+
+        config_file.write_all(default_config.as_bytes()).unwrap();
+        self.work_duration = 1500;
+        self.pause_duration = 300;
+        self.sound = "󰖁".to_string();
+        self.only_minutes = false;
+    }
+
+    pub fn write_config(&self) {
+        let home_dir = dirs::home_dir().expect("Failed to get home directory");
+        let config_file_path: PathBuf = [
+            home_dir,
+            ".config".into(),
+            "pomodorors".into(),
+            "config".into(),
+        ]
+        .iter()
+        .collect();
+
+        let mut config_file = fs::File::create(config_file_path).expect("Failed to create file");
+
+        let config_to_save = format!(
+            r#"
+{{
+    "work_duration": {},
+    "pause_duration": {},
+    "only_minutes": {},
+    "sound": {} 
+}}
+"#,
+            self.work_duration,
+            self.pause_duration,
+            self.only_minutes,
+            self.sound == *"󰕾",
+        );
+
+        config_file
+            .write_all(config_to_save.as_bytes())
+            .expect("Writing config failed");
+    }
+
+    pub fn new_from_file(config: String) -> Self {
+        let config: AppConfig = serde_json::from_str(&config).unwrap();
+
+        Self {
+            running: true,
+            pause: false,
+            timer: "".to_string(),
+            work_duration: config.work_duration,
+            pause_duration: config.pause_duration,
+            stopwatch: Stopwatch::start_new(),
+            button: "".to_string(),
+            tooltip: "".to_string(),
+            only_minutes: config.only_minutes,
+            sound: if config.sound {
+                "󰕾".to_string()
+            } else {
+                "󰖁".to_string()
+            },
+        }
     }
 
     /// Handles the tick event of the terminal.
@@ -199,11 +297,6 @@ pause: {} min ",
 
 
 
-
-
-
-
-
   {} min
 󱦲            Work           󱦳
  Increas                    Decrease 
@@ -212,10 +305,12 @@ pause: {} min ",
     
      {}
 
-    d - sound effects
+    s - sound effects
     r - restart 
-    s - skip
+    f - skip
     m - display only minutes
+    w - save config to file
+    d - default in app, file
 ",
                 self.work_duration / 60,
                 self.pause_duration / 60,
